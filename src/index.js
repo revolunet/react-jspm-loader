@@ -47,4 +47,4 @@ class LoadUmd extends Component {
 }
 
 
-export default LoadUmd
+export default JsPmLoader

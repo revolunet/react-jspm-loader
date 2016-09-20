@@ -19,8 +19,8 @@ const config = {
     docs: path.join(ROOT_PATH, 'docs'),
     tests: path.join(ROOT_PATH, 'tests')
   },
-  filename: 'react-load-umd',
-  library: 'LoadUmd'
+  filename: 'react-jspm-loader',
+  library: 'JsPmLoader'
 };
 
 process.env.BABEL_ENV = TARGET;

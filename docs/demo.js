@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LoadUmd from '../src';
+import JsPmLoader from '../src';
 
 const SAMPLE_PROPS = {
   json: [{
@@ -24,11 +24,11 @@ const SAMPLE_PROPS = {
 class Demo extends React.Component {
   render() {
     return (<div style={ { textAlign:'center', margin: '0 auto' } }>
-              <h3>async loading of react-json-viewer component demo</h3>
+              <h3>async loading of react-json-viewer component with JSPM</h3>
               <center>
-                <LoadUmd url="https://npmcdn.com/react-json-viewer@1.0.9" name="ReactJSONViewer" props={ SAMPLE_PROPS }>
+                <JsPmLoader module="npm:react-json-viewer" props={ SAMPLE_PROPS }>
                     <div>Loading remote component...</div>
-                </LoadUmd>
+                </JsPmLoader>
               </center>
             </div>)
   }
