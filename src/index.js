@@ -1,40 +1,36 @@
 import React, { Component } from 'react';
 import script from 'scriptjs';
 
-
 // load remote component and return it when ready
 // display current children while loading
-class LoadUmd extends Component {
+class JsPmLoader extends Component {
   state = {
     Component: null,
     error: null
   }
   static propTypes = {
-    url: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired,
+    module: React.PropTypes.string.isRequired,
     props: React.PropTypes.object
   }
   componentDidMount() {
-    // expose React for UMD build
-    window.React = React;
     // async load of remote UMD component
-    script(this.props.url, () => {
-      const target = window[this.props.name];
-      if (target) {
-        // loaded OK
+    script('https://jspm.io/system@0.19.js', () => {
+      global.System.import(this.props.module).then(Component => {
         this.setState({
           error: null,
-          Component: target
-        })
-      } else {
-        // loaded fail
+          Component: Component
+        });
+      }).catch(e => {
+        const message = `Error loading ${this.props.module} : ${e}`;
+        console.error(message);
         this.setState({
-          error: `Cannot load component ${this.props.name} at ${this.props.url}`,
+          error: message,
           Component: null
-        })
-      }
+        });
+      });
     });
   }
+
   render() {
     if (this.state.Component) {
       return <this.state.Component {...this.props.props || {} } />
