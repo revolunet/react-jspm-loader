@@ -31,14 +31,17 @@ const common = {
   },
   module: {
     preLoaders: [
-      {
-        test: /\.jsx?$/,
-        loaders: ['eslint'],
-        include: [
-          config.paths.docs,
-          config.paths.src
-        ]
-      }
+      // {
+      //   test: /\.jsx?$/,
+      //   loaders: ['eslint'],
+      //   include: [
+      //     config.paths.docs,
+      //     config.paths.src
+      //   ],
+      //   exclude: [
+      //     path.join(config.paths.src, '*.min.js')
+      //   ]
+      // }
     ],
     loaders: [
       {
@@ -58,7 +61,9 @@ const common = {
       {
         test: /\.json$/,
         loader: 'json',
-        include: path.join(ROOT_PATH, 'package.json')
+        include: [
+          path.join(ROOT_PATH, 'package.json')
+        ]
       }
     ]
   },
@@ -205,13 +210,13 @@ if (TARGET.startsWith('test') || !TARGET) {
   module.exports = merge(common, {
     module: {
       preLoaders: [
-        {
-          test: /\.jsx?$/,
-          loaders: ['eslint'],
-          include: [
-            config.paths.tests
-          ]
-        }
+        // {
+        //   test: /\.jsx?$/,
+        //   loaders: ['eslint'],
+        //   include: [
+        //     config.paths.tests
+        //   ]
+        // }
       ],
       loaders: [
         {
