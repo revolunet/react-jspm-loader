@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["React"], factory);
 	else if(typeof exports === 'object')
-		exports["LoadUmd"] = factory(require("react"));
+		exports["JsPmLoader"] = factory(require("react"));
 	else
-		root["LoadUmd"] = factory(root["React"]);
+		root["JsPmLoader"] = factory(root["React"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -54,7 +54,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	/* WEBPACK VAR INJECTION */(function(global, process) {'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -80,49 +80,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	// load remote component and return it when ready
 	// display current children while loading
-	var LoadUmd = function (_Component) {
-	  _inherits(LoadUmd, _Component);
+	var JsPmLoader = function (_Component) {
+	  _inherits(JsPmLoader, _Component);
 	
-	  function LoadUmd() {
+	  function JsPmLoader() {
 	    var _ref;
 	
 	    var _temp, _this, _ret;
 	
-	    _classCallCheck(this, LoadUmd);
+	    _classCallCheck(this, JsPmLoader);
 	
 	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	      args[_key] = arguments[_key];
 	    }
 	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = LoadUmd.__proto__ || Object.getPrototypeOf(LoadUmd)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = JsPmLoader.__proto__ || Object.getPrototypeOf(JsPmLoader)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
 	      Component: null,
 	      error: null
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
-	  _createClass(LoadUmd, [{
+	  _createClass(JsPmLoader, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      var _this2 = this;
 	
-	      // expose React for UMD build
-	      window.React = _react2.default;
 	      // async load of remote UMD component
-	      (0, _scriptjs2.default)(this.props.url, function () {
-	        var target = window[_this2.props.name];
-	        if (target) {
-	          // loaded OK
+	      (0, _scriptjs2.default)('https://jspm.io/system@0.19.js', function () {
+	        global.System.import(_this2.props.module).then(function (Component) {
 	          _this2.setState({
 	            error: null,
-	            Component: target
+	            Component: Component
 	          });
-	        } else {
-	          // loaded fail
+	        }).catch(function (e) {
+	          var message = 'Error loading ' + _this2.props.module + ' : ' + e;
+	          console.error(message);
 	          _this2.setState({
-	            error: 'Cannot load component ' + _this2.props.name + ' at ' + _this2.props.url,
+	            error: message,
 	            Component: null
 	          });
-	        }
+	        });
 	      });
 	    }
 	  }, {
@@ -142,16 +139,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }]);
 	
-	  return LoadUmd;
+	  return JsPmLoader;
 	}(_react.Component);
 	
-	process.env.NODE_ENV !== "production" ? LoadUmd.propTypes = {
-	  url: _react2.default.PropTypes.string.isRequired,
-	  name: _react2.default.PropTypes.string.isRequired,
+	process.env.NODE_ENV !== "production" ? JsPmLoader.propTypes = {
+	  module: _react2.default.PropTypes.string.isRequired,
 	  props: _react2.default.PropTypes.object
 	} : void 0;
-	exports.default = LoadUmd;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+	exports.default = JsPmLoader;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(1)))
 
 /***/ },
 /* 1 */
@@ -478,4 +474,4 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-//# sourceMappingURL=react-load-umd.js.map
+//# sourceMappingURL=react-jspm-loader.js.map
