@@ -10,9 +10,9 @@ See also : [React UMD loader](https://github.com/revolunet/react-umd-loader)
 
 ## Usage
 
-You can require modules in the [jspm](http://jspm.io/) registry : github and pm
+You can require modules in the [jspm](http://jspm.io/) registry : github and npm
 
-This example loads the npm `react-svg-piechart` component into our app
+This example loads the npm `react-json-viewer` component into our app
 
 ```js
 import JsPmLoader from 'react-jspm-loader'
